@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>캘린더연습</title>
+    <style>
+        #wrapper {
+            width: 700px;
+            height: 700px;
+            background: lightslategray;
+            margin: auto;
+        }
+
+        #header {
+            width: 100%;
+            height: 50px;
+            background: antiquewhite;
+            text-align: center;
+            color: aliceblue;
+        }
+
+        #title {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #header button {
+            width: 30px;
+            height: 30px;
+            font-size: 12px;
+            border: 2px solid lightgray;
+            border-radius: 15px;
+        }
+
+        #day_title {
+            width: 100%;
+            height: 50px;
+            background: palevioletred;
+            position: relative;
+            text-align: center;
+        }
+
+        #day_title div {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #content {
+            width: 100%;
+            height: 600px;
+            background: seagreen;
+            position: relative;
+        }
+    </style>
+    <script src="../day0602/Box.js"></script>
+    <script src="../day0602/DayBox.js"></script>
+    <script src="../day0602/DateBox.js"></script>
+    <script>
+        let title;
+        let day_title;
+        let content;
+
+        let dayArray = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+
+        let nowDate;
+
+        function createDayBox() {
+            for (let i = 0; i < dayArray.length; i++) {
+                new DayBox(day_title, 100, 50, i * 100, 0, dayArray[i], "lightgray", "");
+            }
+        }
+
+        function createDateBox(){
+            let count=0; //셀의 순번
+
+            for(let a=0; a<6; a++){ //층, 6
+                for(let i=0; i<dayArray.length; i++){ //호, 7
+                    count++;
+                    new DateBox(content, 100, 100, i*100, a*100, count, "lightgray", "");
+                }
+            }
+        }
+
+        function setTitle(){
+            let year=nowDate.getFullYear();
+            let month=nowDate.getMonth();
+
+            title.innerText=year+"년 "+(month+1)+"월";
+        }
+
+        function init() {
+            title = document.getElementById("title");
+            day_title = document.getElementById("day_title");
+            content = document.getElementById("content");
+
+            createDayBox();
+            createDateBox();
+
+            nowDate=new Date();
+            nowDate.setDate(1);
+
+            setTitle();
+
+        }
+
+        addEventListener("load", function () {
+            init();
+        });
+    </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <button onClick="">◀</button>
+            <span id="title">2023년 00월</span>
+            <button onClick="">▶</button>
+        </div>
+        <div id="day_title"></div>
+        <div id="content"></div>
+    </div>
+</body>
+
+</html>
